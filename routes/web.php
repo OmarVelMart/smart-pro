@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Livewire\Createuser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,11 +20,3 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/usuarios',[UserController::class, 'index'])->middleware('auth')->name('user');
-Route::get('/usuarios/create',[Createuser::class, 'render'])->middleware('auth')->name('create');
-
