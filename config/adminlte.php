@@ -234,7 +234,18 @@ return [
             'text' => 'profile',
             'url'  => 'user/profile',
             'icon' => 'fas fa-fw fa-user',
-        ],      
+        ],
+        [
+            'text'    => 'RRHH',
+            'icon'    => 'fas fa-fw fa-folder-open',
+            'submenu' => [
+                [
+                    'text' => 'Empleados',
+                    'route'  => 'admin.employees.index',
+                    'icon' => 'fas fa-fw fa-users',
+                ],
+            ],
+        ],
         [
             'text'    => 'Administración',
             'icon'    => 'fas fa-fw fa-lock',
@@ -253,11 +264,6 @@ return [
                     'text' => 'Admin',
                     'route'  => 'admin.users.index',
                     'icon' => 'fas fa-fw fa-user-tie',
-                ],
-                [
-                    'text' => 'Empleados',
-                    'route'  => 'admin.employees.index',
-                    'icon' => 'fas fa-fw fa-users',
                 ],
                 [
                     'text' => 'Computadoras',

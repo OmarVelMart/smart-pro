@@ -44,7 +44,7 @@
                             <td>{{$employee->created_at}}</td>
                             <td>{{$employee->updated_at}}</td>
                             <td>
-                                <form class="form-del-employee" action="{{route('admin.employees.destroy', $employee)}}" method="POST">
+                                <form class="form-delete-employee" action="{{route('admin.employees.destroy', $employee)}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <a class="btn btn-outline-info btn-sm fas fa-edit" href="{{route('admin.employees.edit',$employee)}}"></a>
@@ -79,20 +79,20 @@
 <script src=" https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js "></script>
 @if(session('eliminar') == 'ok')
 <script>
-Swal.fire(
-      '¡Eliminado!',
-      'El empleado se eliminó con éxito.',
-      'success',
+    Swal.fire(
+        '¡Eliminado!',
+        'El empleado se eliminó con éxito.',
+        'success',
     )
 </script>
 
 @endif
 @if(session('guardado') == 'ok')
 <script>
-Swal.fire(
-      '¡Guardado!',
-      'El empleado se guardo con éxito.',
-      'success',
+    Swal.fire(
+        '¡Guardado!',
+        'El empleado se guardo con éxito.',
+        'success',
     )
 </script>
 
@@ -115,9 +115,9 @@ Swal.fire(
     }
 </script>
 <script>
-$('.form-del-employee').submit(function(e) {
-    e.preventDefault();
-    Swal.fire({
+    $('.form-delete-employee').submit(function(e) {
+        e.preventDefault();
+        Swal.fire({
             title: '¿Estas seguro de eliminar a este empleado?',
             text: "¡La acción ya no podra ser revertida!",
             icon: 'warning',
@@ -131,11 +131,6 @@ $('.form-del-employee').submit(function(e) {
                 this.submit();
             }
         })
-
-})
-
-    
-        
-    
+    })
 </script>
 @stop

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Computer;
+use App\Models\Employee;
 
 class ComputerController extends Controller
 {
@@ -16,7 +17,8 @@ class ComputerController extends Controller
     public function index()
     {
         $compu = Computer::all();
-        return view('admin.computers.index',compact('compu'));
+        $empl = Employee::all();
+        return view('admin.computers.index',compact('compu','empl'));
     }
 
     /**
@@ -26,7 +28,7 @@ class ComputerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.computers.create');
     }
 
     /**
@@ -37,7 +39,12 @@ class ComputerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'type' => 'required',
+            'employees_id'=>'required',
+        ]);
+        $compu = Computer::create($request->all());
+        return redirect()->to('admin/computers')->with('guardado','ok');    
     }
 
     /**
