@@ -21,10 +21,16 @@
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Nombre</label>
                 <input name="name" type="name" class="form-control" placeholder="Ingresa un nombre completo">
+                @error('name')
+                    <small class="text-danger">{{$message}}</small>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Correo</label>
                 <input name="email" type="email" class="form-control" id="inputPassword4" placeholder="Ingresa un correo de smart tracker">
+                @error('email')
+                    <small class="text-danger">{{$message}}</small>
+                @enderror
             </div>
             <div class="col-md-4">
                 <label for="area" class="form-label">Area</label>

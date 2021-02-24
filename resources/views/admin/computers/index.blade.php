@@ -54,7 +54,13 @@
                             <td>{{$pc->condition}}</td>
                             <td>{{$pc->details}}</td>
                             <td>{{$pc->area}}</td>
-                            <td>{{$pc->status}}</td>
+                            <td <?php 
+                            if ($pc->status == 1) {
+                                echo ' style="background-color: chartreuse;"';
+                            }elseif ($pc->status == 0) {
+                                echo ' style="background-color: orange;"';
+                            }
+                            ?>>{{$pc->status}}</td>
                             <td>{{$pc->employees->name}}</td>
                             <td>{{$pc->created_at}}</td>
                             <td>{{$pc->updated_at}}</td>
@@ -219,7 +225,7 @@
                                 <div class="input-group mb-2 mr-sm-2">
                                     <select name="employees_id" class="custom-select">
                                         @foreach ($empl as $employee)
-                                        <option selected>{{$employee->id}}</option>
+                                        <option id="option-id-pc" selected>{{$employee->id}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -266,5 +272,7 @@
 
 
     });
+
+    
 </script>
 @stop
