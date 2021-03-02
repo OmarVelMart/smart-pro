@@ -39,13 +39,16 @@
                             <td>{{$employee->email}}</td>
                             <td>{{$employee->area}}</td>
                             <td>{{$employee->phone}}</td>
-                            <td id="employee-status" <?php 
-                            if ($employee->status == 1) {
-                                echo ' style="background-color: chartreuse;"';
-                            }elseif ($employee->status == 0) {
-                                echo ' style="background-color: orange;"';
-                            }
-                            ?> >{{$employee->status}}</td>
+                            <td <?php
+                                if ($employee->status == 1) {
+                                    echo ' style="background-color: chartreuse;"';
+                                    echo '<td>Activo</td>';
+                                } elseif ($employee->status == 0) {
+                                    echo ' style="background-color: orange;"';
+                                    echo '<td>Inactivo</td>';
+                                }
+                                ?>
+                            </td>
                             <td>{{$employee->password}}</td>
                             <td>{{$employee->created_at}}</td>
                             <td>{{$employee->updated_at}}</td>
@@ -83,7 +86,6 @@
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script src=" https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js "></script>
 <script src=" https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js "></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 @if(session('eliminar') == 'ok')
 <script>
@@ -115,15 +117,8 @@
             url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
         }
     });
-
-    var status = document.getElementById("employee-status").innerText;
-
-    if (status == 1) {
-        document.getElementById("employee-status").innerHTML = "Activo";
-    } else if (status == 0) {
-        document.getElementById("employee-status").innerHTML = "Inactivo";
-    }
 </script>
+
 <script>
     $('.form-delete-employee').submit(function(e) {
         e.preventDefault();
