@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
@@ -13,10 +14,31 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $emp = Employee::all();
-        return view('admin.employees.index',compact('emp'));
+        if ($request->ajax()) {
+            # code...
+            $emp = Employee::all();
+            return DataTables::of($emp)
+            ->addColumn('actual',function($emp){
+                $act = $emp->created_at;
+                return $act;
+            })
+            ->addColumn('update',function($emp){
+                $upd = $emp->updated_at;
+                return $upd;
+            })
+            ->addColumn('action',function($emp){
+                $actions = '<a href="" class="btn btn-info btn-sm fas fa-edit"></a>';
+                $actions .= '&nbsp;<button type="button" name="delete" id="" class="btn btn-danger btn-sm  fas fa-trash-alt"></button>';
+                return $actions;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+
+        return view('admin.employees.index');
+        
     }
 
     /**

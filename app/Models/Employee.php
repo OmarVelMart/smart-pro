@@ -16,7 +16,9 @@ class Employee extends Model
     'phone',
     'status',
     'password',
-    'url'];
+    'url',
+    'created_at',
+    'updated_at'];
 
     public function computer(){
         return $this->hasOne('App\Models\Computer','employees_id');

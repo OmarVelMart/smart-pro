@@ -16,7 +16,7 @@
     <div class="card-body text.primary">
         <div class="row">
             <div class="col">
-                <table id="empleados" class="table table-striped table-bordered nowrap small" style="width:100%" cellspacing="0">
+                <table id="tbl-employees" class="table table-striped table-bordered nowrap small" style="width:100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
                             <th>Id</th>
@@ -26,49 +26,17 @@
                             <th>Teléfono</th>
                             <th>Estatus</th>
                             <th>Contraseña</th>
+                            <th>Foto</th>
                             <th>Alta</th>
                             <th>Actualizado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($emp as $employee)
-                        <tr>
-                            <td>{{$employee->id}}</td>
-                            <td>{{$employee->name}}</td>
-                            <td>{{$employee->email}}</td>
-                            <td>{{$employee->area}}</td>
-                            <td>{{$employee->phone}}</td>
-                            <td <?php
-                                if ($employee->status == 1) {
-                                    echo ' style="background-color: chartreuse;"';
-                                    echo '<td>Activo</td>';
-                                } elseif ($employee->status == 0) {
-                                    echo ' style="background-color: orange;"';
-                                    echo '<td>Inactivo</td>';
-                                }
-                                ?>
-                            </td>
-                            <td>{{$employee->password}}</td>
-                            <td>{{$employee->created_at}}</td>
-                            <td>{{$employee->updated_at}}</td>
-                            <td>
-                                <form class="form-delete-employee" action="{{route('admin.employees.destroy', $employee)}}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <a class="btn btn-outline-info btn-sm fas fa-edit" href="{{route('admin.employees.edit',$employee)}}"></a>
-                                    <button id="btn-deleted-emp" type="submit" class="btn btn-outline-danger btn-sm fas fa-trash-alt"></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
 @stop
 
 @section('css')
@@ -76,8 +44,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
-
-
 @stop
 
 @section('js')
@@ -111,16 +77,39 @@
 
 
 <script>
-    $('#empleados').DataTable({
+$(document).ready(function(){
+    var tblEmployees =
+    $('#tbl-employees').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax:{
+          url:   "{{route('admin.employees.index')}}"
+        },
+        columns:[
+            {data: 'id'},
+            {data: 'name'},
+            {data: 'email'},
+            {data: 'area'},
+            {data: 'phone'},            
+            {data: 'status'},
+            {data: 'password'},
+            {data: 'url'},
+            {data: 'actual'},
+            {data: 'update'},
+            {data: 'action'}
+        ],
         responsive: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
         }
-    });
+    })
+
+});
+
 </script>
 
 <script>
-    $('.form-delete-employee').submit(function(e) {
+    $('.tbl-employees').on('click',function(e) {
         e.preventDefault();
         Swal.fire({
             title: '¿Estas seguro de eliminar a este empleado?',
@@ -137,5 +126,10 @@
             }
         })
     })
+
+    
+$datos = document.getElementById('tbl-employees').getElementsByTagName('td')[5].innerHTML;
+console.log($datos);
+
 </script>
 @stop
