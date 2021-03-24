@@ -20,6 +20,15 @@ class EmployeeController extends Controller
             # code...
             $emp = Employee::all();
             return DataTables::of($emp)
+            ->addColumn('statusemp',function($emp){
+                $act = $emp->status;
+                if ($act == 1) {
+                    $act = "Activo";
+                }elseif ($act == 0) {
+                    $act = "Inactivo";
+                }
+                return $act;
+            })
             ->addColumn('actual',function($emp){
                 $act = $emp->created_at;
                 return $act;
