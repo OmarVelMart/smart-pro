@@ -126,7 +126,10 @@
                                     <option>Concubino(a)</option>
                                 </select>
                             </div>
-                            
+                            <div class="input-group date">
+                                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+
                             <div class="col-md-4">
                                 <label for="area" class="form-label">Area</label>
                                 <br>
@@ -140,7 +143,7 @@
                                     <option>Monitoreo</option>
                                 </select>
                             </div>
-                            
+
                             <div class="col-md-4">
                                 <label for="inputCity" class="form-label">Estatus</label>
                                 <select name="status" class="form-control" id="status">
@@ -171,14 +174,14 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href=" https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css ">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
 @stop
 
 @section('js')
-<script src=" https://code.jquery.com/jquery-3.5.1.js "></script>
-<script src=" https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js "></script>
-<script src=" https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js "></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script src=" https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js "></script>
 <script src=" https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js "></script>
 
@@ -224,13 +227,13 @@
                         data: 'email'
                     },
                     {
-                        data: 'area'
+                        data: 'area',
                     },
                     {
                         data: 'phone'
                     },
                     {
-                        data: 'statusemp'
+                        data: 'statusemp',
                     },
                     {
                         data: 'password'
@@ -249,14 +252,11 @@
                     }
                 ],
                 "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    if (aData.statusemp == "Inactivo") //si la edad es menor de 40
-                    {
-                        $('td:eq(5)', nRow).css({
-                            'color': '#ff9300'
-                        });
-                    } else if (aData.statusemp == "Activo") {
-                        $('td:eq(5)', nRow).css('color', '#4cff4f');
+                    if (aData.statusemp == "Inactivo") {
+                        $('td:eq(5)', nRow).html('<span style="background: orange; border-radius: 5px">Inactivo</span>')
 
+                    } else if (aData.statusemp == "Activo") {
+                        $('td:eq(5)', nRow).html('<span style="background: chartreuse; border-radius: 5px" >Activo</span>');
                     }
                 },
                 responsive: true,
@@ -288,9 +288,5 @@
 </script>
 
 <script>
-
-
-
-
 </script>
 @stop

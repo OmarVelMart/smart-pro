@@ -23,7 +23,7 @@ class EmployeeController extends Controller
             ->addColumn('statusemp',function($emp){
                 $act = $emp->status;
                 if ($act == 1) {
-                    $act = "Activo";
+                    $act = 'Activo';
                 }elseif ($act == 0) {
                     $act = "Inactivo";
                 }
